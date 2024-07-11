@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    header {
+        background-color: #ffffff;
+        color: #333;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        /* position: sticky; */
+        top: 0;
+        z-index: 1000;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: center;
+    }
+    
+    nav a {
+        color: #ff6b6b;
+        margin: 0 20px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+    
+    nav a:hover {
+        color: #333;
+    }
+    
+    .container {
+        width: 90%;
+        margin: auto;
+        padding: 20px 0;
+    }
+    
+    #addNewButton {
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+    
+    .popup-form {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 400px;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        z-index: 1000;
+    }
+    
+    .form-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-container input, .form-container textarea {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    #tilesContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .tile {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 10px;
+        width: 200px;
+        text-align: left;
+        position: relative;
+    }
+    
+    .tile img {
+        max-width: 100%;
+        border-radius: 8px;
+    }
+    
+    .tile .description {
+        word-wrap: break-word;
+    }
+    
+    .tile-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    
+    .tile-buttons button {
+        padding: 5px 10px;
+        font-size: 14px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .tile-buttons button:hover {
+        background-color: #45a049;
+    }
+
+    footer {
+      background-color: #ff6b6b;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+    }
+    @media (max-width: 600px) {
+        .tile {
+            width: 100%;
+        }
+    
+        .popup-form {
+            width: 90%;
+        }
+    }
+    
+    
+    </style>
+</head>
+<body>
+     <header>
+    <nav>
+        <h2 style="margin-top: 0px; position: absolute;left: 15px;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Update 24/7</h2>
+      <a href="/">Home</a>
+      <a href="/sports">Sports</a>
+      <a href="/contact">Contact Us</a>
+      <a href="/about">About Us</a>
+      <a href="/admin">Admin</a>
+    </nav>
+  </header>
+    <div class="container">
+        
+        <button id="addNewButton"style="background-color: #ff6b6b; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;">Add New</button>
+        <div id="popupForm" class="popup-form">
+            <div class="form-container">
+                <h2>Add New Tile</h2>
+                <label for="imageUrl">Image URL:</label>
+                <input type="text" id="imageUrl" name="imageUrl">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"></textarea>
+                <button id="submitButton"style="background-color: #4CAF50; /* Blue */
+                border: none;
+                color: white;
+                padding: 10px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline;
+                font-size: 14px;
+                margin-right: 10px;
+                width:70px;
+                cursor: pointer;
+                border-radius: 5px;">Submit</button>
+
+                <br>
+
+                <button id="closeButton" style="background-color: #f44336; /* Red */
+                border: none;
+                color: white;
+                padding: 10px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline;
+                font-size: 14px;
+                width: 70px;
+                cursor: pointer;
+                border-radius: 5px;">Close</button>
+            </div>
+        </div>
+        <div id="tilesContainer" class="tiles-container">
+            <!-- Tiles will be added here -->
+        </div>
+    </div>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+        const addNewButton = document.getElementById('addNewButton');
+        const popupForm = document.getElementById('popupForm');
+        const submitButton = document.getElementById('submitButton');
+        const closeButton = document.getElementById('closeButton');
+        const tilesContainer = document.getElementById('tilesContainer');
+        
+        let editingTile = null;
+    
+        addNewButton.addEventListener('click', () => {
+            popupForm.style.display = 'block';
+        });
+    
+        closeButton.addEventListener('click', () => {
+            popupForm.style.display = 'none';
+        });
+    
+        submitButton.addEventListener('click', () => {
+            const imageUrl = document.getElementById('imageUrl').value;
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+    
+            if (imageUrl && title && description) {
+                if (editingTile) {
+                    updateTile(editingTile, imageUrl, title, description);
+                    editingTile = null;
+                } else {
+                    createTile(imageUrl, title, description);
+                }
+    
+                document.getElementById('imageUrl').value = '';
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+    
+                popupForm.style.display = 'none';
+            } else {
+                alert('Please fill out all fields.');
+            }
+        });
+    
+        function createTile(imageUrl, title, description) {
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            tile.innerHTML = `
+                <img src="${imageUrl}" alt="${title}">
+                <h3>${title}</h3>
+                <p>${description}</p>
+                <div class="tile-buttons">
+                    <button class="editButton">Edit</button>
+                    <button class="deleteButton">Delete</button>
+                </div>
+            `;
+            tile.querySelector('.editButton').addEventListener('click', () => {
+                editTile(tile);
+            });
+            tile.querySelector('.deleteButton').addEventListener('click', () => {
+                deleteTile(tile);
+            });
+            tilesContainer.appendChild(tile);
+        }
+    
+        function updateTile(tile, imageUrl, title, description) {
+            tile.querySelector('img').src = imageUrl;
+            tile.querySelector('img').alt = title;
+            tile.querySelector('h3').innerText = title;
+            tile.querySelector('p').innerText = description;
+        }
+    
+        function editTile(tile) {
+            editingTile = tile;
+            document.getElementById('imageUrl').value = tile.querySelector('img').src;
+            document.getElementById('title').value = tile.querySelector('h3').innerText;
+            document.getElementById('description').value = tile.querySelector('p').innerText;
+            popupForm.style.display = 'block';
+        }
+    
+        function deleteTile(tile) {
+            tilesContainer.removeChild(tile);
+        }
+    });
+    
+    </script>
+ <footer>
+    <p>&copy; 2024 My Website | Contact: +123456789</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Us</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+
+   
+    header {
+    background-color: #ffffff;
+    color: #333;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+  }
+  
+  nav a {
+    color: #ff6b6b;
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  nav a:hover {
+    color: #333;
+  }
+    .contact-section {
+        margin:1% 3% 2% 3%;
+      padding: 50px 20px;
+      max-width: 1200px;
+      /* margin: 0 auto; */
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .contact-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .contact-image img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .contact-form {
+      width: 45%;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .contact-form input[type="submit"] {
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .contact-info {
+      margin-top: 20px;
+    }
+
+    .contact-info p {
+      margin: 5px 0;
+    }
+
+    .social-icons {
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      margin-right: 10px;
+    }
+
+    footer {
+    background-color: #ff6b6b;
+    color:white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+        <h2 style="margin-top: 0px;position: absolute;left: 15px;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Update 24/7</h2>
+      <a href="/">Home</a>
+      <a href="/sports">Sports</a>
+      <a href="/contact">Contact Us</a>
+      <a href="/about">About Us</a>
+    </nav>
+  </header>
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-image">
+        <img src="https://images.unsplash.com/photo-1551806235-6692cbfc690b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="600px" alt="Contact Us">
+      </div>
+      <div class="contact-form">
+        <form action="/contact" method="post">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required><br>
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required><br>
+          <label for="message">Query</label>
+          <textarea id="message" name="message" required></textarea><br>
+          <input type="submit" value="Contact Us">
+        </form>
+        <div class="contact-info">
+            
+          <p>Contact: hi@fashion.com</p>
+          <p>Based in San Francisco, California</p>
+          <div class="social-icons">
+            <a href="#"><img src="data:image/png;base64,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" width="20px" alt="Facebook"></a>
+            <a href="#"><img src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?size=338&ext=jpg&ga=GA1.1.2113030492.1720396800&semt=ais_user" width="20px" alt="Twitter"></a>
+            <a href="#"><img src="https://i.pinimg.com/736x/04/43/f2/0443f2433f935e7f7c44aba64bbf2c23.jpg" width="25px" height="20px" alt="Instagram"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2024 My Website | Contact: +123456789</p>
+  </footer>
+</body>
+</html>
